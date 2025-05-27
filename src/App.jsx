@@ -40,16 +40,8 @@ const App = () => {
             <Route path="/password-reset" element={<PasswordResetFlow />} />
 
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={
-                <LoginPage />
-            } />
-          
-            <Route path="/register" element={
-            
-                <RegisterPage />
-             
-            } />
-
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
             {/* Protected Routes */}
             <Route
               path="/dashboard/admin"
@@ -81,9 +73,7 @@ const App = () => {
               path="/dashboard/faculty"
               element={
                 <ProtectedRoute allowedRoles={['faculty']}>
-
                       <FacultyDashboard />
-
                 </ProtectedRoute>
               }
             />
