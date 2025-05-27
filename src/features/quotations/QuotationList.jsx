@@ -25,14 +25,14 @@ const QuotationList = ({ userRole, userId, labId }) => {
       }
 
       if (userRole === 'lab_assistant') {
-        endpoint = 'http://localhost:7000/api/quotations/lab';
+        endpoint = 'https://pharmacy-stocks-backend.onrender.com/api/quotations/lab';
         if (labId) {
           params.labId = labId;
         }
       } else if (userRole === 'central_lab_admin') {
-        endpoint = 'http://localhost:7000/api/quotations/central';
+        endpoint = 'https://pharmacy-stocks-backend.onrender.com/api/quotations/central';
       } else if (userRole === 'admin') {
-        endpoint = 'http://localhost:7000/api/quotations/admin';
+        endpoint = 'https://pharmacy-stocks-backend.onrender.com/api/quotations/admin';
       }
 
       const token = localStorage.getItem('token');

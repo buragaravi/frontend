@@ -12,7 +12,7 @@ const NotificationPage = () => {
     setLoading(true);
     setFetchError(null);
     try {
-      const res = await axios.get(`http://localhost:7000/api/notifications/user`, {
+      const res = await axios.get(`https://pharmacy-stocks-backend.onrender.com/api/notifications/user`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -30,7 +30,7 @@ const NotificationPage = () => {
 
   const markAsRead = async (notificationId) => {
     try {
-      await axios.post(`http://localhost:7000/api/notifications/mark-read/${notificationId}`, {}, {
+      await axios.post(`https://pharmacy-stocks-backend.onrender.com/api/notifications/mark-read/${notificationId}`, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }

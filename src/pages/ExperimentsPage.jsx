@@ -25,7 +25,7 @@ import ExperimentForm from '../components/ExperimentForm';
 
 // Create axios instance with default config
 const api = axios.create({
-  baseURL: 'http://localhost:7000/api',
+  baseURL: 'https://pharmacy-stocks-backend.onrender.com/api',
   headers: {
     'Content-Type': 'application/json',
   },

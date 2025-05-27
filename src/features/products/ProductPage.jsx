@@ -4,7 +4,7 @@ import ProductList from './ProductList';
 import ProductForm from './ProductForm';
 
 
-const BASE_URL = 'http://localhost:7000/api/products';
+const BASE_URL = 'https://pharmacy-stocks-backend.onrender.com/api/products';
 
 const ProductPage = () => {
   const [products, setProducts] = useState([]);

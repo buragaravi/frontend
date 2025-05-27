@@ -18,7 +18,7 @@ const SEMESTERS = [1, 2, 3, 4, 5, 6, 7, 8];
 const token = localStorage.getItem('token');
 // Create axios instance with default config
 const api = axios.create({
-  baseURL: 'http://localhost:7000/api',
+  baseURL: 'https://pharmacy-stocks-backend.onrender.com/api',
   headers: {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`,
@@ -104,7 +104,7 @@ const ExperimentForm = ({ experiment, onClose }) => {
   const createMutation = useMutation({
     mutationFn: async (data) => {
       const token = localStorage.getItem('token');
-      const response = await api.post('http://localhost:7000/api/experiments', data, {
+      const response = await api.post('https://pharmacy-stocks-backend.onrender.com/api/experiments', data, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -132,7 +132,7 @@ const ExperimentForm = ({ experiment, onClose }) => {
   const updateMutation = useMutation({
     mutationFn: async (data) => {
       const token = localStorage.getItem('token');
-      const response = await api.put(`http://localhost:7000/api/experiments/${experiment._id}`, data, {
+      const response = await api.put(`https://pharmacy-stocks-backend.onrender.com/api/experiments/${experiment._id}`, data, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

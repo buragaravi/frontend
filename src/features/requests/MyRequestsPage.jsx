@@ -67,7 +67,7 @@ const MyRequestsPage = () => {
   const fetchMyRequests = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('http://localhost:7000/api/requests/faculty', {
+      const res = await axios.get('https://pharmacy-stocks-backend.onrender.com/api/requests/faculty', {
         headers: {
           Authorization: `Bearer ${token}`,
         },

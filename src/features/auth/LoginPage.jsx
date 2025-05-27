@@ -15,7 +15,7 @@ const LoginPage = () => {
         setError('');
         
         try {
-            const response = await axios.post('http://localhost:7000/api/auth/login', {
+            const response = await axios.post('https://pharmacy-stocks-backend.onrender.com/api/auth/login', {
                 email,
                 password,
             });

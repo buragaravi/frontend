@@ -68,7 +68,7 @@ const CentralChemicalTable = () => {
     try {
       setLoadingChemicals(true);
       setChemicalError(null);
-      const response = await axios.get('http://localhost:7000/api/chemicals/central/available', {
+      const response = await axios.get('https://pharmacy-stocks-backend.onrender.com/api/chemicals/central/available', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setChemicalDetails(response.data || []);
@@ -103,13 +103,13 @@ const CentralChemicalTable = () => {
     setLoading(true);
     try {
       // Fetch central lab data
-      const centralRes = await axios.get('http://localhost:7000/api/chemicals/central/available', {
+      const centralRes = await axios.get('https://pharmacy-stocks-backend.onrender.com/api/chemicals/central/available', {
         headers: { Authorization: `Bearer ${token}` },
       });
 
       // Fetch data from all labs
       const labPromises = LAB_IDS.map(labId => 
-        axios.get(`http://localhost:7000/api/chemicals/live/${labId}`, {
+        axios.get(`https://pharmacy-stocks-backend.onrender.com/api/chemicals/live/${labId}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
       );
@@ -137,7 +137,7 @@ const CentralChemicalTable = () => {
   const fetchLabDistribution = async () => {
     setIsLabDistributionLoading(true);
     try {
-      const response = await axios.get('http://localhost:7000/api/chemicals/distribution', {
+      const response = await axios.get('https://pharmacy-stocks-backend.onrender.com/api/chemicals/distribution', {
         headers: { Authorization: `Bearer ${token}` }
       });
       
@@ -381,7 +381,7 @@ const CentralChemicalTable = () => {
 
   const fetchHistoricalData = async () => {
     try {
-      const response = await axios.get('http://localhost:7000/api/chemicals/history', {
+      const response = await axios.get('https://pharmacy-stocks-backend.onrender.com/api/chemicals/history', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setHistoricalData(response.data);
@@ -486,7 +486,7 @@ const CentralChemicalTable = () => {
 
   const fetchLabDetails = async (labId) => {
     try {
-      const response = await axios.get(`http://localhost:7000/api/chemicals/live/${labId}`, {
+      const response = await axios.get(`https://pharmacy-stocks-backend.onrender.com/api/chemicals/live/${labId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setLabStats(response.data);

@@ -7,7 +7,7 @@ import { FiSearch, FiFilter, FiX, FiPrinter, FiChevronLeft, FiCalendar, FiDollar
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const API_BASE = 'http://localhost:7000/api';
+const API_BASE = 'https://pharmacy-stocks-backend.onrender.com/api';
 
 const InvoiceList = () => {
   const [invoices, setInvoices] = useState([]);

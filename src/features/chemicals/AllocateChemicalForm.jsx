@@ -24,7 +24,7 @@ const AllocateChemicalForm = () => {
   useEffect(() => {
     const fetchAvailableChemicals = async () => {
       try {
-        const res = await axios.get('http://localhost:7000/api/chemicals/central/available', {
+        const res = await axios.get('https://pharmacy-stocks-backend.onrender.com/api/chemicals/central/available', {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -100,7 +100,7 @@ const AllocateChemicalForm = () => {
 
     try {
       const res = await axios.post(
-        'http://localhost:7000/api/chemicals/allocate',
+        'https://pharmacy-stocks-backend.onrender.com/api/chemicals/allocate',
         { labId, allocations },
         { headers: { Authorization: `Bearer ${token}` } }
       );

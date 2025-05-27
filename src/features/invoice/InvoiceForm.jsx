@@ -5,7 +5,7 @@ import * as Papa from 'papaparse';
 import * as XLSX from 'xlsx';
 import ProductForm from '../products/ProductForm';
 
-const API_BASE = 'http://localhost:7000/api';
+const API_BASE = 'https://pharmacy-stocks-backend.onrender.com/api';
 
 const InvoiceForm = () => {
     // State for vendors, products, voucherId, form, errors
@@ -435,7 +435,7 @@ const InvoiceForm = () => {
         setProductFormLoading(true);
         setProductFormError('');
         try {
-            const res = await axios.post('http://localhost:7000/api/products', productData);
+            const res = await axios.post('https://pharmacy-stocks-backend.onrender.com/api/products', productData);
             setProducts(prev => [res.data.data, ...prev]);
             // Move to next unregistered product or close modal
             if (productFormIndex < unregisteredProducts.length - 1) {

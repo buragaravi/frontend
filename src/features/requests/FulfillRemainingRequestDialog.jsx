@@ -39,7 +39,7 @@ const FulfillRemainingRequestDialog = ({
     setLoading(true);
     try {
       const response = await axios.post(
-        'http://localhost:7000/api/requests/fulfill-remaining',
+        'https://pharmacy-stocks-backend.onrender.com/api/requests/fulfill-remaining',
         {
           requestId: request._id,
           quantities
@@ -64,7 +64,7 @@ const FulfillRemainingRequestDialog = ({
     setLoading(true);
     try {
       await axios.post(
-        'http://localhost:7000/api/requests/fulfill-remaining',
+        'https://pharmacy-stocks-backend.onrender.com/api/requests/fulfill-remaining',
         {
           requestId: request._id,
           quantities,

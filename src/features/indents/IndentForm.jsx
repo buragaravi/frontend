@@ -40,7 +40,7 @@ const IndentForm = ({ userRole, userId, labId }) => {
   useEffect(() => {
     const fetchAvailableChemicals = async () => {
       try {
-        const res = await axios.get('http://localhost:7000/api/chemicals/central/available', {
+        const res = await axios.get('https://pharmacy-stocks-backend.onrender.com/api/chemicals/central/available', {
           headers: { Authorization: `Bearer ${token}` },
         });
         const sortedChemicals = res.data.sort((a, b) => a.chemicalName.localeCompare(b.chemicalName));
@@ -167,7 +167,7 @@ const IndentForm = ({ userRole, userId, labId }) => {
     }
     try {
       const payload = preparePayload();
-      await axios.post('http://localhost:7000/api/indents/lab', payload, {
+      await axios.post('https://pharmacy-stocks-backend.onrender.com/api/indents/lab', payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMessage({

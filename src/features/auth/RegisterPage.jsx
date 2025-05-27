@@ -23,7 +23,7 @@ const RegisterPage = () => {
                 ? { userId, name, email, password, role, labId }
                 : { userId, name, email, password, role };
 
-            const response = await axios.post('http://localhost:7000/api/auth/register', payload);
+            const response = await axios.post('https://pharmacy-stocks-backend.onrender.com/api/auth/register', payload);
             navigate('/login', { state: { registrationSuccess: true } });
         } catch (err) {
             setError(err.response?.data?.message || 'Registration failed. Please try again.');

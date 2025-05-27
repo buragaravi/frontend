@@ -36,7 +36,7 @@ const AddChemicalForm = () => {
     setMessage('');
     try {
       const res = await axios.post(
-        'http://localhost:7000/api/chemicals/add',
+        'https://pharmacy-stocks-backend.onrender.com/api/chemicals/add',
         { chemicals, usePreviousBatchId },
         { headers: { Authorization: `Bearer ${token}` } }
       );

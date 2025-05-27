@@ -19,12 +19,12 @@ const IndentList = ({ userRole, userId, labId, refreshTrigger }) => {
       if (statusFilter !== 'all') params.status = statusFilter;
       if (searchTerm) params.search = searchTerm;
       if (userRole === 'lab_assistant') {
-        endpoint = 'http://localhost:7000/api/indents/lab';
+        endpoint = 'https://pharmacy-stocks-backend.onrender.com/api/indents/lab';
         if (labId) params.labId = labId;
       } else if (userRole === 'central_lab_admin') {
-        endpoint = 'http://localhost:7000/api/indents/central';
+        endpoint = 'https://pharmacy-stocks-backend.onrender.com/api/indents/central';
       } else if (userRole === 'admin') {
-        endpoint = 'http://localhost:7000/api/indents/admin';
+        endpoint = 'https://pharmacy-stocks-backend.onrender.com/api/indents/admin';
       }
       const token = localStorage.getItem('token');
       const res = await axios.get(endpoint, {

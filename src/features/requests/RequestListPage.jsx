@@ -19,7 +19,7 @@ const RequestListPage = () => {
       try {
         setLoading(true);
         const token = localStorage.getItem('token');
-        const res = await fetch('http://localhost:7000/api/requests/', {
+        const res = await fetch('https://pharmacy-stocks-backend.onrender.com/api/requests/', {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -32,7 +32,7 @@ const RequestPage = () => {
     setErrorMessage('');
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:7000/api/requests/', {
+      const response = await fetch('https://pharmacy-stocks-backend.onrender.com/api/requests/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

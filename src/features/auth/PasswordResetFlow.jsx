@@ -29,7 +29,7 @@ const PasswordResetFlow = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.post('http://localhost:7000/api/auth/request-password-reset', { email });
+      const response = await axios.post('https://pharmacy-stocks-backend.onrender.com/api/auth/request-password-reset', { email });
       setSuccess(response.data.msg);
       setStep(2);
       startCountdown();
@@ -45,7 +45,7 @@ const PasswordResetFlow = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.post('http://localhost:7000/api/auth/verify-otp', { email, otp });
+      const response = await axios.post('https://pharmacy-stocks-backend.onrender.com/api/auth/verify-otp', { email, otp });
       setSuccess(response.data.msg);
       setStep(3);
     } catch (err) {
@@ -67,7 +67,7 @@ const PasswordResetFlow = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:7000/api/auth/reset-password', { email, newPassword });
+      const response = await axios.post('https://pharmacy-stocks-backend.onrender.com/api/auth/reset-password', { email, newPassword });
       setSuccess(response.data.msg);
       setTimeout(() => navigate('/login'), 2000);
     } catch (err) {
@@ -81,7 +81,7 @@ const PasswordResetFlow = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.post('http://localhost:7000/api/auth/request-password-reset', { email });
+      const response = await axios.post('https://pharmacy-stocks-backend.onrender.com/api/auth/request-password-reset', { email });
       setSuccess('OTP resent successfully');
       startCountdown();
     } catch (err) {

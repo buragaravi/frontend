@@ -34,7 +34,7 @@ const IndentCard = ({ indent, userRole, userId, labId, refreshList, canUpdateSta
     setIsLoading(true);
     setError('');
     try {
-      const endpoint = 'http://localhost:7000/api/indents/central/allocate';
+      const endpoint = 'https://pharmacy-stocks-backend.onrender.com/api/indents/central/allocate';
       await axios.patch(
         endpoint,
         {

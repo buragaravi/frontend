@@ -28,7 +28,7 @@ const LabDistributionChart = () => {
   useEffect(() => {
     const fetchDistribution = async () => {
       try {
-        const response = await axios.get('http://localhost:7000/api/chemicals/distribution');
+        const response = await axios.get('https://pharmacy-stocks-backend.onrender.com/api/chemicals/distribution');
         // Format data for better display
         const formattedData = response.data.map(lab => ({
           ...lab,

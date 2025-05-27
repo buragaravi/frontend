@@ -4,7 +4,7 @@ import printJS from 'print-js';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
-const API_BASE = 'http://localhost:7000/api';
+const API_BASE = 'https://pharmacy-stocks-backend.onrender.com/api';
 
 const VendorInvoices = () => {
   const [vendors, setVendors] = useState([]);

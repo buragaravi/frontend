@@ -26,7 +26,7 @@ const LabRequests = () => {
     queryKey: ['labRequests'],
     queryFn: async () => {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:7000/api/requests/lab', {
+      const response = await axios.get('https://pharmacy-stocks-backend.onrender.com/api/requests/lab', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -39,7 +39,7 @@ const LabRequests = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.patch(
-        `http://localhost:7000/api/requests/${requestId}/status`,
+        `https://pharmacy-stocks-backend.onrender.com/api/requests/${requestId}/status`,
         { status },
         {
           headers: {

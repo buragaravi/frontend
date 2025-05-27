@@ -56,7 +56,7 @@ const ChemicalAddToDraftModal = ({
 
       // Make API call
       await axios.post(
-        'http://localhost:7000/api/quotations/central/draft/add-chemical',
+        'https://pharmacy-stocks-backend.onrender.com/api/quotations/central/draft/add-chemical',
         {
           quotationId: selectedDraftId,
           chemicals: requestData

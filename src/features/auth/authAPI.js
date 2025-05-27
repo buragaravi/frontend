@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:7000/api';
+const BASE_URL = 'https://pharmacy-stocks-backend.onrender.com/api';
 
 export const register = async (userData) => {
   const response = await axios.post(`${BASE_URL}/auth/register`, userData);

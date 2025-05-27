@@ -24,7 +24,7 @@ const FulfillRequestDialog = ({ request, onClose, onSuccess }) => {
 
   // Create axios instance with auth token
   const api = axios.create({
-    baseURL: 'http://localhost:7000/api',
+    baseURL: 'https://pharmacy-stocks-backend.onrender.com/api',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('token')}`

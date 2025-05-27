@@ -30,7 +30,7 @@ const AdminDashboard = () => {
       try {
         const token = localStorage.getItem('token');
         if (!token) return;
-        const res = await fetch('http://localhost:7000/api/auth/me', {
+        const res = await fetch('https://pharmacy-stocks-backend.onrender.com/api/auth/me', {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.ok) {

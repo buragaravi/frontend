@@ -39,7 +39,7 @@ const InventoryPage = () => {
   const fetchInventory = async (page = 1) => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:7000/api/inventory/all?page=${page}&name=${search}`);
+      const response = await axios.get(`https://pharmacy-stocks-backend.onrender.com/api/inventory/all?page=${page}&name=${search}`);
       setChemicals(response.data.inventory);
       setPagination({
         currentPage: response.data.currentPage,

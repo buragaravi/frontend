@@ -10,7 +10,7 @@ const ExperimentSelector = ({ onExperimentsSelect, selectedExperiments = [] }) =
     ['experiments', semester],
     async () => {
       if (!semester) return [];
-      const response = await axios.get(`http://localhost:7000/api/requests/experiments?semester=${semester}`);
+      const response = await axios.get(`https://pharmacy-stocks-backend.onrender.com/api/requests/experiments?semester=${semester}`);
       return response.data;
     },
     {
@@ -20,7 +20,7 @@ const ExperimentSelector = ({ onExperimentsSelect, selectedExperiments = [] }) =
 
   const handleExperimentSelect = async (experimentId) => {
     try {
-      const response = await axios.get(`http://localhost:7000/api/requests/experiments/${experimentId}/suggested-chemicals`);
+      const response = await axios.get(`https://pharmacy-stocks-backend.onrender.com/api/requests/experiments/${experimentId}/suggested-chemicals`);
       const { suggestedChemicals } = response.data;
 
       const newExperiment = {
@@ -140,7 +140,7 @@ const ExperimentSelector = ({ onExperimentsSelect, selectedExperiments = [] }) =
           </div>
         </div>
       )}
-    </Box>
+    </div>
   );
 };
 

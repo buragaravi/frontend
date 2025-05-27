@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const API_BASE = 'http://localhost:7000/api';
+const API_BASE = 'https://pharmacy-stocks-backend.onrender.com/api';
 
 const InvoiceOtherProductsForm = ({ category }) => {
   // category: 'glassware' or 'others'

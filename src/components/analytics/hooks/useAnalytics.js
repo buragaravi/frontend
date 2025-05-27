@@ -42,7 +42,7 @@ const useAnalytics = (filters = {}) => {
         }
 
         // Build endpoint based on decoded role
-        let endpoint = 'http://localhost:7000/api/analytics/';
+        let endpoint = 'https://pharmacy-stocks-backend.onrender.com/api/analytics/';
         switch (role) {
           case 'admin':
             endpoint += 'system-overview';

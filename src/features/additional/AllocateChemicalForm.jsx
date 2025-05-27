@@ -21,7 +21,7 @@ const AllocateChemicalForm = () => {
   const fetchChemicals = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:7000/api/chemicals', {
+      const response = await axios.get('https://pharmacy-stocks-backend.onrender.com/api/chemicals', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setChemicals(response.data);
@@ -34,7 +34,7 @@ const AllocateChemicalForm = () => {
   const fetchLabs = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:7000/api/labs', {
+      const response = await axios.get('https://pharmacy-stocks-backend.onrender.com/api/labs', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setLabs(response.data);
@@ -75,7 +75,7 @@ const AllocateChemicalForm = () => {
       }));
 
       const response = await axios.post(
-        'http://localhost:7000/api/chemicals/allocate',
+        'https://pharmacy-stocks-backend.onrender.com/api/chemicals/allocate',
         { allocations: allocationData },
         { headers: { Authorization: `Bearer ${token}` } }
       );

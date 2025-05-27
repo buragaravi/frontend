@@ -152,9 +152,9 @@ const TransactionsPage = () => {
       let url = '';
 
       if (userRole === 'lab_assistant') {
-        url = `http://localhost:7000/api/transactions/lab/${userLabId}`;
+        url = `https://pharmacy-stocks-backend.onrender.com/api/transactions/lab/${userLabId}`;
       } else if (userRole === 'admin' || userRole === 'central_lab_admin') {
-        url = `http://localhost:7000/api/transactions/all`;
+        url = `https://pharmacy-stocks-backend.onrender.com/api/transactions/all`;
       } else {
         setError('Unauthorized access');
         setLoading(false);

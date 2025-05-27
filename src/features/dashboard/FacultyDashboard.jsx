@@ -25,7 +25,7 @@ const FacultyDashboard = () => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:7000/api/auth/me', {
+        const res = await axios.get('https://pharmacy-stocks-backend.onrender.com/api/auth/me', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(res.data);

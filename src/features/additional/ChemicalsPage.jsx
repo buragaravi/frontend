@@ -35,7 +35,7 @@ const ChemicalsPage = () => {
       let url = '';
 
       if (userRole === 'lab_assistant') {
-        url = `http://localhost:7000/api/chemicals/stock/${userLabId}`;
+        url = `https://pharmacy-stocks-backend.onrender.com/api/chemicals/stock/${userLabId}`;
         const response = await axios.get(url, {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -43,8 +43,8 @@ const ChemicalsPage = () => {
       } else {
         url =
           viewMode === 'central'
-            ? 'http://localhost:7000/api/chemicals'
-            : 'http://localhost:7000/api/chemicals/labs';
+            ? 'https://pharmacy-stocks-backend.onrender.com/api/chemicals'
+            : 'https://pharmacy-stocks-backend.onrender.com/api/chemicals/labs';
         const response = await axios.get(url, {
           headers: { Authorization: `Bearer ${token}` },
         });
