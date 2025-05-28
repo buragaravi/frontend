@@ -14,25 +14,53 @@ const labOptions = [
 
 const AllocateChemicalForm = () => {
   const [labId, setLabId] = useState('');
-  const [chemicals, setChemicals] = useState([{ chemicalName: '', quantity: 0, chemicalMasterId: '', unit: '' }]);
+  const [chemicals, setChemicals] = useState([{ chemicalName: '', quantity: 0, chemicalMasterId: '', unit: '', expiryDate: '' }]);
   const [availableChemicals, setAvailableChemicals] = useState([]);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
   const token = localStorage.getItem('token');
 
+  // Helper: Merge chemicals by displayName, sum quantities, keep earliest expiry
+  const mergeChemicalsByDisplayName = (chemList) => {
+    const merged = {};
+    chemList.forEach((chem) => {
+      const displayName = chem.displayName || chem.chemicalName;
+      if (!merged[displayName]) {
+        merged[displayName] = {
+          ...chem,
+          quantity: Number(chem.quantity),
+          expiryDate: chem.expiryDate,
+        };
+      } else {
+        merged[displayName].quantity += Number(chem.quantity);
+        // Keep the earliest expiry date
+        if (
+          chem.expiryDate &&
+          (!merged[displayName].expiryDate ||
+            new Date(chem.expiryDate) < new Date(merged[displayName].expiryDate))
+        ) {
+          merged[displayName].expiryDate = chem.expiryDate;
+        }
+      }
+    });
+    // Remove duplicate chemicalMasterId/unit if they differ (shouldn't happen, but safe)
+    return Object.values(merged);
+  };
+
   useEffect(() => {
     const fetchAvailableChemicals = async () => {
       try {
-        const res = await axios.get('https://pharmacy-stocks-backend.onrender.com/api/chemicals/central/available', {
+        const res = await axios.get('http://localhost:7000/api/chemicals/central/available', {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        const sorted = res.data
-          .filter((chem) => chem.quantity > 0)
-          .sort((a, b) => a.chemicalName.localeCompare(b.chemicalName));
+        // Merge by displayName, sum quantities, keep earliest expiry
+        const merged = mergeChemicalsByDisplayName(
+          res.data.filter((chem) => chem.quantity > 0)
+        ).sort((a, b) => (a.displayName || a.chemicalName).localeCompare(b.displayName || b.chemicalName));
 
-        setAvailableChemicals(sorted);
+        setAvailableChemicals(merged);
       } catch (err) {
         console.error('Failed to fetch chemicals:', err);
       }
@@ -47,14 +75,18 @@ const AllocateChemicalForm = () => {
     updated[index].quantity = 0;
     updated[index].chemicalMasterId = '';
     updated[index].unit = '';
+    updated[index].expiryDate = '';
 
+    // Find the merged chemical by displayName
     const selected = availableChemicals.find(
-      (chem) => chem.chemicalName.toLowerCase() === name.toLowerCase()
+      (chem) =>
+        (chem.displayName || chem.chemicalName).toLowerCase() === name.toLowerCase()
     );
 
     if (selected) {
       updated[index].chemicalMasterId = selected.chemicalMasterId;
       updated[index].unit = selected.unit;
+      updated[index].expiryDate = selected.expiryDate; // Earliest expiry
     }
 
     setChemicals(updated);
@@ -67,7 +99,7 @@ const AllocateChemicalForm = () => {
   };
 
   const addChemicalRow = () => {
-    setChemicals([...chemicals, { chemicalName: '', quantity: 0, chemicalMasterId: '', unit: '' }]);
+    setChemicals([...chemicals, { chemicalName: '', quantity: 0, chemicalMasterId: '', unit: '', expiryDate: '' }]);
   };
 
   const removeChemicalRow = (index) => {
@@ -88,8 +120,9 @@ const AllocateChemicalForm = () => {
       .filter((c) => c.chemicalMasterId && c.quantity)
       .map((c) => ({
         chemicalMasterId: c.chemicalMasterId,
-        chemicalName : c.chemicalName,
+        chemicalName: c.chemicalName,
         quantity: parseFloat(c.quantity),
+        expiryDate: c.expiryDate, // Send earliest expiry
       }));
 
     if (allocations.length === 0) {
@@ -100,13 +133,12 @@ const AllocateChemicalForm = () => {
 
     try {
       const res = await axios.post(
-        'https://pharmacy-stocks-backend.onrender.com/api/chemicals/allocate',
+        'http://localhost:7000/api/chemicals/allocate',
         { labId, allocations },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      console.log(res.data)
-      setMessage('Chemicals allocated successfully!',res.data);
-      setChemicals([{ chemicalName: '', quantity: 0, chemicalMasterId: '', unit: '' }]);
+      setMessage('Chemicals allocated successfully!');
+      setChemicals([{ chemicalName: '', quantity: 0, chemicalMasterId: '', unit: '', expiryDate: '' }]);
     } catch (err) {
       setMessage(err.response?.data?.message || 'Allocation failed');
     } finally {
@@ -148,7 +180,7 @@ const AllocateChemicalForm = () => {
               chemical.chemicalName &&
               !availableChemicals.some(
                 (chem) =>
-                  chem.chemicalName.toLowerCase() === chemical.chemicalName.toLowerCase() &&
+                  (chem.displayName || chem.chemicalName).toLowerCase() === chemical.chemicalName.toLowerCase() &&
                   chem.quantity > 0
               );
 
@@ -167,8 +199,11 @@ const AllocateChemicalForm = () => {
                     />
                     <datalist id={`chemical-list-${index}`}>
                       {availableChemicals.map((chem) => (
-                        <option key={`${chem.chemicalMasterId}-${chem.chemicalName}-${index}`} value={chem.chemicalName}>
-                          {chem.chemicalName} ({chem.unit}) - {chem.quantity} in stock
+                        <option
+                          key={`${chem.chemicalMasterId}-${chem.displayName || chem.chemicalName}-${index}`}
+                          value={chem.displayName || chem.chemicalName}
+                        >
+                          {(chem.displayName || chem.chemicalName)} ({chem.unit}) - {chem.quantity} in stock
                         </option>
                       ))}
                     </datalist>
