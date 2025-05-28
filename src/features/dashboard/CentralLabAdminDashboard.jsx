@@ -9,15 +9,18 @@ import ExperimentsPage from '../../pages/ExperimentsPage';
 import LabRequestListPage from '../requests/LabRequestListPage';
 import ProductList from '../products/ProductList';
 import IndentPage from '../indents/IndentPage';
+import InvoicePage from '../invoice/InvoicePage';
+import { useNavigate } from 'react-router-dom';
 
 const menuItems = [
   { key: 'chemicals', label: 'Chemicals', component: <ChemicalDashboard /> },
   { key: 'quotations', label: 'Quotations', component: <QuotationPage /> },
   { key: 'indents', label: 'Indents', component: <IndentPage /> },
-  { key: 'transactions', label: 'Transactions', component: <TransactionsPage /> },
+  { key: 'transactions', label: 'Reports', component: <TransactionsPage /> },
   { key: 'experiments', label: 'Experiments', component: <ExperimentsPage /> },
-  { key: 'products', label: 'Products', component: <ProductList /> },
-  { key: 'profile', label: 'Profile', component: <UserDetails /> },
+  { key: 'products', label: 'Products', component:null, route: '/products' },
+  { key: 'invoices', label: 'Invoices', component: null, route: '/invoices' },
+  { key: 'vendors', label: 'Vendors', component: null, route: '/vendors' },
   { key: 'labrequests', label: 'Lab Requests', component: null },
 ];
 
@@ -33,13 +36,14 @@ const CentralLabAdminDashboard = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [expandedLab, setExpandedLab] = useState(null);
+  const navigate = useNavigate();
 
   // Fetch user info
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('https://pharmacy-stocks-backend.onrender.com/api/auth/me', {
+        const res = await axios.get('http://localhost:7000/api/auth/me', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(res.data);
@@ -179,6 +183,7 @@ const CentralLabAdminDashboard = () => {
                 onClick={() => {
                   setSelected(item.key);
                   setSidebarOpen(false);
+                  if (item.route) navigate(item.route);
                 }}
                 className={`py-3 px-5 rounded-xl transition-all font-semibold text-lg flex items-center gap-2 ${
                   selected === item.key ? buttonActive : buttonInactive
@@ -192,7 +197,8 @@ const CentralLabAdminDashboard = () => {
                 }}
               >
                 {item.label}
-              </button>            ))}
+              </button>
+            ))}
             </div>
           </nav>
         </div>

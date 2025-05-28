@@ -9,7 +9,6 @@ import LabRequestListPage from '../requests/LabRequestListPage';
 import UserDetails from '../../components/UserDetails';
 
 const menuItems = [
-  { key: 'quotations', label: 'Quotations', component: <QuotationPage /> },
   { key: 'indents', label: 'Indents', component: <IndentPage /> },
   { key: 'chemicals', label: 'Chemicals', component: <ChemicalDashboard /> },
   { key: 'requests', label: 'Lab Requests', component: null },
@@ -22,7 +21,7 @@ const DARK_BG = 'linear-gradient(135deg, #0B3861 0%, #1E88E5 100%)';
 
 const LabAssistantDashboard = () => {
   const [labId, setLabId] = useState('');
-  const [selected, setSelected] = useState('quotations');
+  const [selected, setSelected] = useState('requests');
   const [theme, setTheme] = useState('light');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [user, setUser] = useState(null);
@@ -33,7 +32,7 @@ const LabAssistantDashboard = () => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('https://pharmacy-stocks-backend.onrender.com/api/auth/me', {
+        const res = await axios.get('http://localhost:7000/api/auth/me', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(res.data);
@@ -68,8 +67,6 @@ const LabAssistantDashboard = () => {
 
   const renderContent = () => {
     switch (selected) {
-      case 'quotations':
-        return <QuotationPage />;
       case 'indents':
         return <IndentPage />;
       case 'chemicals':

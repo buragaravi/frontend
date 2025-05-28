@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const AddChemicalForm = () => {
@@ -8,12 +8,35 @@ const AddChemicalForm = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [usePreviousBatchId, setUsePreviousBatchId] = useState(false);
+  const [chemicalProducts, setChemicalProducts] = useState([]);
 
   const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    // Fetch only products with category 'chemical' from backend
+    const fetchChemicalProducts = async () => {
+      try {
+        const res = await axios.get('http://localhost:7000/api/products/category/chemical');
+        setChemicalProducts(res.data?.data || []);
+      } catch (err) {
+        setChemicalProducts([]);
+      }
+    };
+    fetchChemicalProducts();
+  }, []);
 
   const handleChange = (index, field, value) => {
     const updated = [...chemicals];
     updated[index][field] = value;
+    // If the field is 'chemicalName', auto-fill the unit from the selected product
+    if (field === 'chemicalName') {
+      const selectedProduct = chemicalProducts.find(prod => prod.name === value);
+      if (selectedProduct) {
+        updated[index].unit = selectedProduct.unit || '';
+      } else {
+        updated[index].unit = '';
+      }
+    }
     setChemicals(updated);
   };
 
@@ -36,7 +59,7 @@ const AddChemicalForm = () => {
     setMessage('');
     try {
       const res = await axios.post(
-        'https://pharmacy-stocks-backend.onrender.com/api/chemicals/add',
+        'http://localhost:7000/api/chemicals/add',
         { chemicals, usePreviousBatchId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -77,13 +100,17 @@ const AddChemicalForm = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div>
                 <label className="block text-sm font-medium text-[#0B3861] mb-1">Chemical Name</label>
-                <input
-                  type="text"
+                <select
                   className="w-full px-3 py-2 border border-[#BCE0FD] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0B3861]"
                   value={chemical.chemicalName}
                   onChange={(e) => handleChange(index, 'chemicalName', e.target.value)}
                   required
-                />
+                >
+                  <option value="">Select chemical</option>
+                  {chemicalProducts.map((prod) => (
+                    <option key={prod._id} value={prod.name}>{prod.name}</option>
+                  ))}
+                </select>
               </div>
               
               <div>

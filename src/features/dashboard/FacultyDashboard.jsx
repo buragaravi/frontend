@@ -3,10 +3,11 @@ import axios from 'axios';
 import UserDetails from '../../components/UserDetails';
 import RequestPage from '../requests/RequestPage';
 import MyRequestsPage from '../requests/MyRequestsPage';
+import CreateRequestForm from '../requests/CreateRequestForm';
 
 const menuItems = [
   { key: 'myrequests', label: 'My Requests', component: <MyRequestsPage /> },
-  { key: 'request', label: 'New Request', component: <RequestPage /> },
+  { key: 'request', label: 'New Request', component: <CreateRequestForm /> },
   { key: 'profile', label: 'Profile', component: <UserDetails /> },
 ];
 
@@ -25,7 +26,7 @@ const FacultyDashboard = () => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('https://pharmacy-stocks-backend.onrender.com/api/auth/me', {
+        const res = await axios.get('http://localhost:7000/api/auth/me', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(res.data);
