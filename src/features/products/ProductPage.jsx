@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import ProductList from './ProductList';
 import ProductForm from './ProductForm';
 
@@ -14,6 +15,7 @@ const ProductPage = () => {
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   // Fetch products
   const fetchProducts = async () => {
@@ -86,6 +88,14 @@ const ProductPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-deep-sea-900 to-deep-sea-700 p-6">
+      <button
+        className="mb-6 px-4 py-2 bg-[#0B3861] text-white rounded-lg hover:bg-[#1E88E5] transition-colors flex items-center gap-2"
+        onClick={() => navigate(-1)}
+      >
+        <span className="material-icons" style={{ fontSize: 18 }}></span>
+        Back
+      </button>
+
       {/* Glassmorphism Container */}
       <div className="backdrop-blur-lg bg-white/10 rounded-3xl shadow-2xl overflow-hidden border border-white/20">
         {/* Header */}

@@ -26,6 +26,9 @@ const IndentCard = ({ indent, userRole, userId, labId, refreshList, canUpdateSta
 
   const token = localStorage.getItem('token');
 
+  // Add this helper
+  const isAllocated = indent.status === 'allocated';
+
   const handleStatusUpdate = async () => {
     if (!statusUpdate) {
       setError('Please select a status');
@@ -111,14 +114,18 @@ const IndentCard = ({ indent, userRole, userId, labId, refreshList, canUpdateSta
         </ul>
       </div>
       <div className="mb-2">
-        <button
-          className="text-xs text-[#0B3861] underline mr-2"
-          onClick={() => setShowComments((v) => !v)}
-        >
-          {showComments ? 'Hide Comments' : 'Show/Add Comments'}
-        </button>
+        {/* Only show comments button if not allocated */}
+        {!isAllocated && (
+          <button
+            className="text-xs text-[#0B3861] underline mr-2"
+            onClick={() => setShowComments((v) => !v)}
+          >
+            {showComments ? 'Hide Comments' : 'Show/Add Comments'}
+          </button>
+        )}
       </div>
-      {showComments && (
+      {/* Only show comments if not allocated */}
+      {showComments && !isAllocated && (
         <div className="mb-2">
           <ul className="mb-2">
             {(indent.comments || []).map((c, idx) => (
@@ -130,7 +137,8 @@ const IndentCard = ({ indent, userRole, userId, labId, refreshList, canUpdateSta
           </ul>
         </div>
       )}
-      {canUpdateStatus && (
+      {/* Only show update status if not allocated */}
+      {canUpdateStatus && !isAllocated && (
         <div className="mt-2 border-t pt-3">
           <label className="block text-xs font-medium text-[#0B3861] mb-1">Update Status</label>
           <select
