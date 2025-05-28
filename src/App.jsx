@@ -21,6 +21,7 @@ import InvoicePage from './features/invoice/InvoicePage';
 import InvoiceList from './features/invoice/InvoiceList';
 import VendorInvoices from './features/vendor/VendorInvoices';
 import PasswordResetFlow from './features/auth/PasswordResetFlow';
+import OutOfStockChemicals from './features/chemicals/OutOfStockChemicals';
 
 import Home from './Home';
 
@@ -150,7 +151,14 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
-            
+            <Route
+              path="/chemicals/out-of-stock"
+              element={
+                <ProtectedRoute allowedRoles={['admin', 'central_lab_admin', 'lab_assistant']}>
+                  <OutOfStockChemicals />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/users" element={<UserManagement />} />
             <Route path="/invoices" element={<InvoicePage />} />
           </Routes>
