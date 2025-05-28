@@ -16,7 +16,7 @@ const AddChemicalForm = () => {
     // Fetch only products with category 'chemical' from backend
     const fetchChemicalProducts = async () => {
       try {
-        const res = await axios.get('http://localhost:7000/api/products/category/chemical');
+        const res = await axios.get('https://pharmacy-stocks-backend.onrender.com/api/products/category/chemical');
         setChemicalProducts(res.data?.data || []);
       } catch (err) {
         setChemicalProducts([]);
@@ -59,7 +59,7 @@ const AddChemicalForm = () => {
     setMessage('');
     try {
       const res = await axios.post(
-        'http://localhost:7000/api/chemicals/add',
+        'https://pharmacy-stocks-backend.onrender.com/api/chemicals/add',
         { chemicals, usePreviousBatchId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
